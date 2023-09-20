@@ -1,9 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    OneToMany,
+    Index
+} from 'typeorm';
 import { Card } from './card';
 
 @Entity('products')
 export class Product {
     @PrimaryGeneratedColumn('uuid')
+    @Index()
     public id: string;
 
     @Column({ type: 'text' })

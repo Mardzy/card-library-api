@@ -3,6 +3,6 @@ import { addProduct } from '../controllers';
 
 const router = Express.Router();
 
-router.post('/addProduct', addProduct);
+router.post('/products', addProduct);
 
 export = router;

@@ -1,41 +1,36 @@
-import * as dotenv from 'dotenv';
 import express from 'express';
-
-import { AppDataSource } from './dataSource';
-
-import cors, { CorsOptions } from 'cors';
+import cors from 'cors';
 import helmet from 'helmet';
+import 'dotenv/config';
+import 'module-alias/register';
+
+import { postgresDataSource } from './connections';
+
 import router from './routes';
 
-dotenv.config();
-const port = process.env.PORT;
-AppDataSource.initialize().then(() => {
-    const app = express();
-
-    app.use(helmet());
-    app.use(
-        cors({
-            origin: 'http://localhost:3000'
-        })
-    );
-    app.use(express.json({ limit: '200mb' }));
-    app.use(express.urlencoded({ extended: false }));
-    app.use((req, res, next) => {
-        res.append(
-            'Access-Control-Allow-Headers',
-            'origin, X-Requested-With,Content-Type,Accept, Authorization'
-        );
-
-        if (req.method === 'OPTIONS') {
-            res.append('Access-Control-Allow-Methods', 'GET PATCH DELETE POST');
-            return res.status(200).json({});
-        }
-
-        next();
+const { API_PORT } = process.env;
+postgresDataSource
+    .initialize()
+    .then(() => {
+        console.log('Data Source has been initialized!');
+    })
+    .catch((err) => {
+        console.error('Error during Data Source initialization:', err);
     });
-    app.use('/api', router);
 
-    return app.listen(port, () => {
-        console.log(`Listening on port ${port}`);
-    });
+const app = express();
+
+app.use(helmet());
+app.use(
+    cors({
+        origin: 'http://localhost:3000'
+    })
+);
+app.use(express.json({ limit: '200mb' }));
+app.use(express.urlencoded({ extended: false }));
+
+app.use('/api', router);
+
+app.listen(API_PORT, () => {
+    console.log(`Listening on port ${API_PORT}`);
 });
