@@ -1,17 +1,9 @@
-import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-    ManyToOne,
-    JoinColumn
-} from 'typeorm';
-import { Product } from './product';
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Product } from './product.entity';
+import Base from './base.entity';
 
 @Entity('cards')
-export class Card {
-    @PrimaryGeneratedColumn('uuid')
-    public id: string;
-
+export class Card extends Base {
     @Column({ type: 'text' })
     public set_name: string;
 
@@ -36,16 +28,18 @@ export class Card {
     @Column('text', { nullable: true })
     public mem!: string;
 
-    @Column({ type: 'smallint' })
-    public serial_numbered: number;
+    @Column('text', { nullable: true })
+    public serial_numbered: string;
 
     @Column({ type: 'text' })
     public odds: string;
 
-    @Column({ type: 'smallint' })
+    @Column({ type: 'integer' })
     public point: number;
 
+    @Column('text')
+    product_id: string;
     @ManyToOne(() => Product, ({ cards }) => cards)
     @JoinColumn({ name: 'product_id' })
-    public product: Product;
+    public product!: Product;
 }

@@ -12,10 +12,10 @@ const { API_PORT } = process.env;
 postgresDataSource
     .initialize()
     .then(() => {
-        console.log('Data Source has been initialized!');
+        console.log('Postgres data source initialized!');
     })
     .catch((err) => {
-        console.error('Error during Data Source initialization:', err);
+        console.error('Error during Postgres data source initialization:', err);
     });
 
 const app = express();
