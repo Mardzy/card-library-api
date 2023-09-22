@@ -8,10 +8,10 @@ export class Product extends Base {
     public manufacturer: string;
 
     @Column({ type: 'text' })
-    public year: string;
+    public name: string;
 
     @Column({ type: 'text' })
-    public name: string;
+    public year: string;
 
     @OneToMany(() => Card, ({ product }) => product, {
         cascade: ['insert']

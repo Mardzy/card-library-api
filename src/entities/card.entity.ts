@@ -20,7 +20,7 @@ export class Card extends Base {
     public team_name: string;
 
     @Column('text', { nullable: true })
-    public rookie!: string;
+    public rookie?: string;
 
     @Column('text', { nullable: true })
     public auto!: string;
