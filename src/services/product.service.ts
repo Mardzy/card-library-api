@@ -83,7 +83,27 @@ export const fetchProducts = async () => {
         return { message, status: 200, products };
     } catch (err) {
         const error = err as Error;
-        message = `Add Product Service Error: ${error.message}`;
+        message = `Fetch Products Service Error: ${error.message}`;
+        console.error(message, error.stack);
+
+        return { message, status: 500 };
+    }
+};
+
+export const fetchProductById = async (product_id: string) => {
+    let message: string;
+    try {
+        const product = await productRepository.findOne({
+            where: { id: product_id },
+            relations: { cards: true },
+            select: { id: true, name: true, manufacturer: true, year: true }
+        });
+        message = `${product?.year} ${product?.name} item found in PRODUCTS table with ${product?.cards.length} cards`;
+
+        return { message, status: 200, product };
+    } catch (err) {
+        const error = err as Error;
+        message = `Fetch Product by Id Service Error: ${error.message}`;
         console.error(message, error.stack);
 
         return { message, status: 500 };

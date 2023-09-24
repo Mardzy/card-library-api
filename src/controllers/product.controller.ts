@@ -1,6 +1,11 @@
 import { Response, Request, NextFunction } from 'express';
 
-import { insertCards, createProduct, fetchProducts } from '../services';
+import {
+    insertCards,
+    createProduct,
+    fetchProducts,
+    fetchProductById
+} from '../services';
 
 /**
  * Add product
@@ -63,9 +68,24 @@ export const getAllProducts = async (
     }
 };
 
-export const getProduct = (req: Request, res: Response) => {
-    console.log('request: ', req);
-    console.log('response: ', res);
+export const getProductById = async (
+    { params: { uid } }: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const { message, status, product } = await fetchProductById(uid);
+        console.info('GET product by id', message);
+
+        res.status(status).json({ product, status });
+        next();
+    } catch (err) {
+        const error = err as Error;
+        const message = `Add Product Error: ${error.message}`;
+        console.error(message, error.stack);
+
+        next(error);
+    }
 };
 
 export const getSpecificProducts = (req: Request, res: Response) => {

@@ -52,15 +52,15 @@ export const insertCards = async (fileData: string, product_id: string) => {
         // if colum isn't available add as null
         return {
             product_id,
-            set_name: set_name || '',
-            card: card || '',
-            description: description || '',
-            team_name: team_name || '',
-            rookie: rookie || '',
-            auto: auto || '',
-            mem: mem || '',
-            serial_numbered: serial_numbered || '',
-            odds: odds || '',
+            set_name: set_name || null,
+            card: card || null,
+            description: description || null,
+            team_name: team_name || null,
+            rookie: rookie || null,
+            auto: auto || null,
+            mem: mem || null,
+            serial_numbered: serial_numbered || null,
+            odds: odds || null,
             point: Number(point)
         };
     });
