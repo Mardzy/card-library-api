@@ -4,7 +4,9 @@ import {
     insertCards,
     createProduct,
     fetchProducts,
-    fetchProductById
+    fetchProductById,
+    updateProductById,
+    deleteProductById
 } from '../services';
 
 /**
@@ -93,12 +95,42 @@ export const getSpecificProducts = (req: Request, res: Response) => {
     console.log('response: ', res);
 };
 
-export const updateProduct = (req: Request, res: Response) => {
-    console.log('request: ', req);
-    console.log('response: ', res);
+export const updateProduct = async (
+    { params: { id }, body }: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const { message, status, product } = await updateProductById(body, id);
+        console.log('product: ', product);
+        console.info('Update Product: ', message);
+
+        res.status(status).json({ product, status });
+        next();
+    } catch (err) {
+        const error = err as Error;
+        const message = `Add Product Error: ${error.message}`;
+        console.error(message, error.stack);
+
+        next(error);
+    }
 };
 
-export const deleteProduct = (req: Request, res: Response) => {
-    console.log('request: ', req);
-    console.log('response: ', res);
+export const deleteProduct = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const { message, status } = await deleteProductById(req.params.id);
+        res.status(status).json({ message, status });
+        console.info('Delete Product Success: ', message);
+        next();
+    } catch (err) {
+        const error = err as Error;
+        const message = `Delete Product Error: ${error.message}`;
+        console.error(message, error.stack);
+
+        next(error);
+    }
 };

@@ -83,3 +83,35 @@ export const insertCards = async (fileData: string, product_id: string) => {
         return { message, status: 500 };
     }
 };
+
+export const getAllCardsByProductId = async (product_id: string) => {
+    let message: string;
+    try {
+        const cards = await cardRepository.find({
+            where: { product_id: product_id }
+        });
+        message = `${
+            cards.length || 'No'
+        } cards found matching product id ${product_id}`;
+
+        return { cards, message, status: 200 };
+    } catch (err) {
+        const error = err as Error;
+        message = `Get all cards by product id service error: ${error.message}`;
+        console.error(message, error.stack);
+
+        return { message, status: 500 };
+    }
+};
+
+export const deleteCardById = async (id: string) => {
+    try {
+        await cardRepository.delete({ id });
+    } catch (err) {
+        const error = err as Error;
+        const message = `Delete card by id service error: ${error.message}`;
+        console.error(message, error.stack);
+
+        return { message, status: 500 };
+    }
+};
