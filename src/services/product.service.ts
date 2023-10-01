@@ -1,6 +1,6 @@
-import { postgresDataSource } from '../connections';
-import { Product } from '../entities';
-import { deleteCardById, getAllCardsByProductId } from './cards.service';
+import { postgresDataSource } from '@connections';
+import { Product } from '@entities';
+import { deleteCardById, getAllCardsByProductId } from '@services';
 
 const productRepository = postgresDataSource.getRepository(Product);
 
@@ -41,6 +41,7 @@ const matchProduct = async ({
 };
 
 export const createProduct = async (product: Partial<Product>) => {
+    console.log('createProduct prod', product);
     const { status: matchProductStatus, message } = await matchProduct(product);
 
     if (matchProductStatus === 200) {

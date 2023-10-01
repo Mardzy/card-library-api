@@ -1,6 +1,7 @@
 {
     "name": "card-library-api",
     "version": "1.0.0",
+    "type": "module",
     "description": "",
     "main": "index.js",
     "scripts": {
@@ -10,28 +11,34 @@
         "lint": "eslint '**/*.{js,jsx,ts,tsx}' --quiet",
         "migration:generate": "typeorm-ts-node-commonjs -d src/connections/postgres.connection.ts migration:generate ./src/migrations/default",
         "migration:run": "typeorm-ts-node-commonjs -d src/connections/postgres.connection.ts migration:run",
-        "start": "npm run build && node build/index.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "serve": "pnpm run build && node build/index.js",
+        "test": "jest",
+        "test:watch": "jest --watch"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "@jest/globals": "^29.7.0",
         "@tsconfig/node-lts": "^18.12.5",
         "@types/cors": "^2.8.14",
         "@types/express": "^4.17.17",
+        "@types/jest": "^29.5.5",
         "@types/module-alias": "^2.0.2",
         "@types/node": "^20.6.3",
+        "@types/supertest": "^2.0.13",
         "@typescript-eslint/eslint-plugin": "^6.7.2",
         "@typescript-eslint/parser": "^6.7.2",
         "eslint": "^8.50.0",
         "eslint-config-prettier": "^9.0.0",
         "eslint-plugin-prettier": "^5.0.0",
-        "nodemon": "^3.0.1",
+        "jest": "^29.7.0",
         "prettier": "^3.0.3",
         "rimraf": "^5.0.1",
+        "ts-jest": "^29.1.1",
         "ts-node": "^10.9.1",
-        "ts-node-dev": "^2.0.0"
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^5.2.2"
     },
     "dependencies": {
         "body-parser": "^1.20.2",
@@ -44,14 +51,17 @@
         "mysql": "^2.18.1",
         "pg": "^8.11.3",
         "reflect-metadata": "^0.1.13",
-        "typeorm": "^0.3.17",
-        "typescript": "^5.2.2"
+        "supertest": "^6.3.3",
+        "typeorm": "^0.3.17"
     },
     "_moduleAliases": {
-        "connection": "dist/connection",
-        "controllers": "dist/controllers",
-        "entities": "dist/entities",
-        "migrations": "dist/migrations",
-        "routes": "dist/routes"
+        "@connections": "./src/connections",
+        "@controllers": "./src/controllers",
+        "@entities": "./src/entities",
+        "@migrations": "./src/migrations",
+        "@routes": "./src/routes",
+        "@services": "./src/services",
+        "@server": "./src/server",
+        "@utils": "./src/utils"
     }
 }

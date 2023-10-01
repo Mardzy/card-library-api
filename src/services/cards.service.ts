@@ -1,12 +1,12 @@
 import { parse } from 'csv-parse/sync';
 
-import { postgresDataSource } from '../connections';
-import { Card } from '../entities';
-import { lowercaseKeys } from '../utils';
+import { postgresDataSource } from '@connections';
+import { Card } from '@entities';
+import { lowercaseKeys } from '@utils';
 
 const cardRepository = postgresDataSource.getRepository(Card);
 
-type RawCardType = {
+export type RawCardType = {
     'Set Name': string;
     Card: string;
     Description: string;

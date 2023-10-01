@@ -1,32 +1,36 @@
 {
     "compilerOptions": {
-        "target": "es2018",
+        "target": "es5",
         "lib": ["es5", "es6", "ES2018"],
+        "baseUrl": "./",
+        "paths": {
+            "@connections": ["src/connections"],
+            "@controllers": ["src/controllers"],
+            "@entities": ["src/entities"],
+            "@migrations": ["src/migrations"],
+            "@routes": ["src/routes"],
+            "@services": ["src/services"],
+            "@server": ["src/server"],
+            "@utils": ["src/utils"]
+        },
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-        "module": "commonjs",
+        "module": "ES2020",
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "allowJs": true,
-        "outDir": "./dist",
+        "outDir": "dist",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,
         "noImplicitAny": true,
-        "strictPropertyInitialization": false
+        "strictPropertyInitialization": false,
+        "removeComments": true,
+        "declaration": false
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules", "dist"],
     "ts-node": {
         "files": true
-    },
-    "moduleResolution": "node",
-    "baseUrl": "./src",
-    "paths": {
-        "connection/*": ["connection/*"],
-        "controllers/*": ["controllers/*"],
-        "entities/*": ["entities/*"],
-        "migrations/*": ["migrations/*"],
-        "routes/*": ["routes/*"]
     }
 }

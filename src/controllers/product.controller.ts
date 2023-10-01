@@ -7,7 +7,7 @@ import {
     fetchProductById,
     updateProductById,
     deleteProductById
-} from '../services';
+} from '@services';
 
 /**
  * Add product
@@ -39,13 +39,16 @@ export async function addProduct(
             });
         } else {
             const err = new Error(message);
-            res.status(status).send(err);
+            res.status(status).json({
+                status,
+                message: err.message
+            });
         }
     } catch (err) {
         const error = err as Error;
-        console.error('Add Product Error', error.message, error.stack);
+        console.error('Add Product Error:', error.message, error.stack);
 
-        res.status(500).send(error);
+        res.status(500).json({ message: error.message, status: 500 });
         next(error);
     }
 }
