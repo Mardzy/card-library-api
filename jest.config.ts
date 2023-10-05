@@ -47,7 +47,14 @@ const config: JestConfigWithTsJest = {
     // ],
 
     // An object that configures minimum threshold enforcement for coverage results
-    // coverageThreshold: undefined,
+    coverageThreshold: {
+        global: {
+            branches: 0,
+            functions: 0,
+            lines: 0,
+            statements: 0
+        }
+    },
 
     // A path to a custom dependency extractor
     // dependencyExtractor: undefined,
@@ -139,7 +146,7 @@ const config: JestConfigWithTsJest = {
     rootDir: '.',
 
     // A list of paths to directories that Jest should use to search for files in
-    roots: ['./src', './tests'],
+    roots: ['./tests'],
 
     // Allows you to use a custom runner instead of Jest's default test runner
     // runner: "jest-runner",

@@ -21,7 +21,7 @@ jest.mock('@services', () => ({
             ? { message: 'pass', status: 200 }
             : { message: 'fail', status: 409 }
 }));
-describe('Add Product Route: ', () => {
+describe('Add Product Service: ', () => {
     it('add product request should return 201 status', async () => {
         const fileData = 'aaa';
         const manufacturer = 'Upper Deck';
