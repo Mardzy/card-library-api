@@ -1,6 +1,7 @@
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 
-import { Base, Product } from '@entities';
+import { Base } from './base.entity';
+import { Product } from './product.entity';
 
 @Entity('cards')
 export class Card extends Base {
@@ -39,7 +40,7 @@ export class Card extends Base {
 
     @Column('text')
     product_id: string;
-    @ManyToOne(() => Product, ({ cards }) => cards)
+    @ManyToOne(() => Product, ({ cards }: Product) => cards)
     @JoinColumn({ name: 'product_id' })
     public product!: Product;
 }

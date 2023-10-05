@@ -7,7 +7,7 @@ import {
     fetchProductById,
     updateProductById,
     deleteProductById
-} from '@services';
+} from '../services';
 
 /**
  * Add product

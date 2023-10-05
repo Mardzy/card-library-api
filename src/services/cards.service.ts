@@ -1,8 +1,8 @@
 import { parse } from 'csv-parse/sync';
 
-import { postgresDataSource } from '@connections';
-import { Card } from '@entities';
-import { lowercaseKeys } from '@utils';
+import { postgresDataSource } from '../connections';
+import { Card } from '../entities';
+import { lowercaseKeys } from '../utils';
 
 const cardRepository = postgresDataSource.getRepository(Card);
 
@@ -106,7 +106,7 @@ export const getAllCardsByProductId = async (product_id: string) => {
 
 export const deleteCardById = async (id: string) => {
     try {
-        await cardRepository.delete({ id });
+        await cardRepository.delete({ id: id });
     } catch (err) {
         const error = err as Error;
         const message = `Delete card by id service error: ${error.message}`;

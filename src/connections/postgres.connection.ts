@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { env } from 'node:process';
 
-import { Product, Card } from '@entities';
+import { Product, Card } from '../entities';
 
 const { DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER } = env;
 

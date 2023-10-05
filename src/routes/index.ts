@@ -6,7 +6,7 @@ import {
     getAllProducts,
     getProductById,
     updateProduct
-} from '@controllers';
+} from '../controllers';
 
 const router = Router();
 

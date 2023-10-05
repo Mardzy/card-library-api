@@ -1,6 +1,6 @@
-import { postgresDataSource } from '@connections';
-import { Product } from '@entities';
-import { deleteCardById, getAllCardsByProductId } from '@services';
+import { postgresDataSource } from '../connections';
+import { Product } from '../entities';
+import { deleteCardById, getAllCardsByProductId } from '../services';
 
 const productRepository = postgresDataSource.getRepository(Product);
 

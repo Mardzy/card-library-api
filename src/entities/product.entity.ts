@@ -1,6 +1,6 @@
 import { Entity, Column, OneToMany } from 'typeorm';
 
-import { Base, Card } from '@entities';
+import { Base, Card } from '../entities';
 
 @Entity('products')
 export class Product extends Base {
