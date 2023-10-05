@@ -10,6 +10,17 @@
         "moduleResolution": "node",
         "noImplicitAny": true,
         "outDir": "dist",
+        "baseUrl": "./",
+        "paths": {
+            "@connections": ["src/connections"],
+            "@controllers": ["src/controllers"],
+            "@entities": ["src/entities"],
+            "@migrations": ["src/migrations"],
+            "@routes": ["src/routes"],
+            "@services": ["src/services"],
+            "@server": ["src/server"],
+            "@utils": ["src/utils"]
+        },
         "removeComments": true,
         "resolveJsonModule": true,
         "rootDir": "src",

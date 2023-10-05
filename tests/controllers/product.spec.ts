@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { expect } from '@jest/globals';
 
-import { server } from '@server';
+import { server } from '@connections';
 import { Product } from '@entities';
 
 jest.mock('@services', () => ({
