@@ -78,6 +78,7 @@ export const fetchProducts = async () => {
     let message: string;
     try {
         const products = await productRepository.find({
+            relations: { cards: true },
             select: { id: true, name: true, manufacturer: true, year: true }
         });
         message = `${products.length} items found in PRODUCTS table`;
@@ -97,9 +98,9 @@ export const fetchProductById = async (product_id: string) => {
 
     try {
         const product = await productRepository.findOne({
-            where: { id: product_id },
+            select: { id: true, name: true, manufacturer: true, year: true },
             relations: { cards: true },
-            select: { id: true, name: true, manufacturer: true, year: true }
+            where: { id: product_id }
         });
         message = `${product?.year} ${product?.name} item found in PRODUCTS table with ${product?.cards.length} cards`;
 

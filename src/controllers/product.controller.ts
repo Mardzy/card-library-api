@@ -74,15 +74,17 @@ export const getAllProducts = async (
 };
 
 export const getProductById = async (
-    { params: { uid } }: Request,
+    req: Request,
     res: Response,
     next: NextFunction
 ) => {
     try {
-        const { message, status, product } = await fetchProductById(uid);
+        const { message, status, product } = await fetchProductById(
+            req.params.id
+        );
         console.info('GET product by id', message);
 
-        res.status(status).json({ product, status });
+        res.status(status).json({ product, status, params: req.params });
         next();
     } catch (err) {
         const error = err as Error;
