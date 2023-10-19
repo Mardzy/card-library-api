@@ -28,7 +28,8 @@ export const insertCards = async (fileData: string, product_id: string) => {
      */
     const cards = parse(fileData, {
         columns: true,
-        from_line: 1
+        from_line: 1,
+        quote: true
     });
 
     /**
@@ -65,7 +66,7 @@ export const insertCards = async (fileData: string, product_id: string) => {
         };
     });
 
-    let message = `${cardList.length} items added to CARDS table.`;
+    let message = `${cardList.length} cards.`;
 
     try {
         for (let i = 0; i < cardList.length; i++) {

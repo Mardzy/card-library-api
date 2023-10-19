@@ -21,10 +21,15 @@ export async function addProduct(
     res: Response,
     next: NextFunction
 ) {
+    const responseMessage = '';
     try {
         const { fileData, manufacturer, name, year } = body;
 
-        const { message, status, product_id } = await createProduct({
+        const {
+            message: createProductMessage,
+            status,
+            product_id
+        } = await createProduct({
             manufacturer,
             name,
             year
@@ -35,10 +40,10 @@ export async function addProduct(
 
             res.status(status).json({
                 status,
-                message
+                message: `${createProductMessage} with ${message}`
             });
         } else {
-            const err = new Error(message);
+            const err = new Error(createProductMessage);
             res.status(status).json({
                 status,
                 message: err.message

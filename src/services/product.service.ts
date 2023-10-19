@@ -41,16 +41,11 @@ const matchProduct = async ({
 };
 
 export const createProduct = async (product: Partial<Product>) => {
-    console.log('createProduct prod', product);
     const { status: matchProductStatus, message } = await matchProduct(product);
 
     if (matchProductStatus === 200) {
         const error = new Error(message);
-        console.error(
-            'Create product service error',
-            error.message,
-            error.stack
-        );
+        console.error('Create product service error', error.message);
 
         return { message, status: 409, product_id: '' };
     }
@@ -59,11 +54,12 @@ export const createProduct = async (product: Partial<Product>) => {
 
     try {
         await productRepository.insert(newProduct);
-
+        const { id, manufacturer, name, year } = newProduct;
+        const productMessage = `${year} ${manufacturer} ${name} created`;
         return {
-            message: 'Item added to PRODUCTS table',
+            message: productMessage,
             status: 201,
-            product_id: newProduct.id
+            product_id: id
         };
     } catch (err) {
         const error = err as Error;

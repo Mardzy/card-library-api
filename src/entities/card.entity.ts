@@ -27,12 +27,12 @@ export class Card extends Base {
     public auto!: string;
 
     @Column('text', { nullable: true })
-    public mem!: string;
+    public mem?: string;
 
     @Column('text', { nullable: true })
     public serial_numbered: string;
 
-    @Column({ type: 'text' })
+    @Column('text', { nullable: true })
     public odds: string;
 
     @Column({ type: 'integer' })
