@@ -3,6 +3,7 @@ import { parse } from 'csv-parse/sync';
 import { postgresDataSource } from '../connections';
 import { Card } from '../entities';
 import { lowercaseKeys } from '../utils';
+import { cleanEmptyFalsyCardProps } from '../utils/card.dto';
 
 const cardRepository = postgresDataSource.getRepository(Card);
 
@@ -21,6 +22,7 @@ export type RawCardType = {
 };
 
 export const insertCards = async (fileData: string, product_id: string) => {
+    console.info('fileData: ', fileData);
     /**
      * Use csv-parse/sync to
      * parse CSV file data
@@ -41,6 +43,7 @@ export const insertCards = async (fileData: string, product_id: string) => {
             set_name,
             card,
             description,
+            team_city,
             team_name,
             rookie,
             auto,
@@ -50,18 +53,19 @@ export const insertCards = async (fileData: string, product_id: string) => {
             point
         }: Partial<Card> = lowercaseKeys(cardItem);
 
-        // if colum isn't available add as null
+        // if colum isn't available add as empty
         return {
             product_id,
-            set_name: set_name || null,
-            card: card || null,
-            description: description || null,
-            team_name: team_name || null,
-            rookie: rookie || null,
-            auto: auto || null,
-            mem: mem || null,
-            serial_numbered: serial_numbered || null,
-            odds: odds || null,
+            set_name: set_name || '',
+            card: card || '',
+            description: description || '',
+            team_city: team_city || '',
+            team_name: team_name || '',
+            rookie: rookie || '',
+            auto: auto || '',
+            mem: mem || '',
+            serial_numbered: serial_numbered || '',
+            odds: odds || '',
             point: Number(point)
         };
     });
@@ -95,7 +99,7 @@ export const getAllCardsByProductId = async (product_id: string) => {
             cards.length || 'No'
         } cards found matching product id ${product_id}`;
 
-        return { cards, message, status: 200 };
+        return { cards: cleanEmptyFalsyCardProps(cards), message, status: 200 };
     } catch (err) {
         const error = err as Error;
         message = `Get all cards by product id service error: ${error.message}`;

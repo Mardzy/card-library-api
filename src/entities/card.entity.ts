@@ -14,7 +14,7 @@ export class Card extends Base {
     @Column({ type: 'text' })
     public description: string;
 
-    @Column('text', { nullable: true })
+    @Column({ type: 'text' })
     public team_city: string;
 
     @Column('text', { nullable: true })
@@ -24,22 +24,22 @@ export class Card extends Base {
     public rookie?: string;
 
     @Column('text', { nullable: true })
-    public auto!: string;
+    public auto?: string;
 
     @Column('text', { nullable: true })
     public mem?: string;
 
     @Column('text', { nullable: true })
-    public serial_numbered: string;
+    public serial_numbered?: string;
 
     @Column('text', { nullable: true })
-    public odds: string;
+    public odds?: string;
 
     @Column({ type: 'integer' })
-    public point: number;
+    public point!: number;
 
     @Column('text')
-    product_id: string;
+    product_id!: string;
     @ManyToOne(() => Product, ({ cards }: Product) => cards)
     @JoinColumn({ name: 'product_id' })
     public product!: Product;

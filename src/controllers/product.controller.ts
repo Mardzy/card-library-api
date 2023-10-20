@@ -21,7 +21,6 @@ export async function addProduct(
     res: Response,
     next: NextFunction
 ) {
-    const responseMessage = '';
     try {
         const { fileData, manufacturer, name, year } = body;
 
@@ -42,6 +41,8 @@ export async function addProduct(
                 status,
                 message: `${createProductMessage} with ${message}`
             });
+
+            console.info(`${createProductMessage} with ${message}`);
         } else {
             const err = new Error(createProductMessage);
             res.status(status).json({
